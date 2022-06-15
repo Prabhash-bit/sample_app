@@ -15,12 +15,15 @@ class _ListOfOrderState extends ConsumerState<ListOfOrder> {
   void initState() {
     // fetchProfileData();
     super.initState();
+    ref.refresh(userDataProvider);
   }
 
   bool isChecked = false;
   // This widget is the root of your application.
   @override
-  Widget build(BuildContext context, ) {
+  Widget build(
+    BuildContext context,
+  ) {
     final userdata = ref.watch(userDataProvider);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -29,12 +32,12 @@ class _ListOfOrderState extends ConsumerState<ListOfOrder> {
       // ),
       home: Scaffold(
           appBar: AppBar(
-            backgroundColor: Color(0xFF31C6A8),
-            leading: BackButton(
+            backgroundColor: const Color(0xFF31C6A8),
+            leading: const BackButton(
               color: Colors.white,
             ),
             centerTitle: true,
-            title: Text('Completed order'),
+            title: const Text('Completed order'),
           ),
           body: userdata.when(
             data: (userDataProvider) {
@@ -69,105 +72,89 @@ class _ListOfOrderState extends ConsumerState<ListOfOrder> {
                               ),
                             ),
                             Container(
-                              color: Color(0xFFF0FAF9),
+                              color: const Color(0xFFF0FAF9),
                               height: MediaQuery.of(context).size.height / 5.0,
                               width: MediaQuery.of(context).size.width / 1.20,
-                              child: Stack(
-                                children: [
-                                  Positioned(
-                                    top: 10.0,
-                                    right: 90.0,
-                                    child: Text(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: [
+                                    Text(
                                       userDataProvider[0].name.toString(),
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           color: Color(0xFF31C6A8),
                                           fontSize: 16.0,
                                           fontWeight: FontWeight.bold),
                                     ),
-                                  ),
-                                  Positioned(
-                                    top: 45.0,
-                                    left: 15.0,
-                                    child: CircleAvatar(
-                                      backgroundColor: Color(0xFFB0B2C7),
-                                      radius: 25.0,
+                                    Row(
+                                      children: [
+                                        CircleAvatar(
+                                          backgroundColor: Color(0xFFB0B2C7),
+                                          radius: 30.0,
+                                        ),
+                                        Spacer(
+                                          flex: 1,
+                                        ),
+                                        const Icon(
+                                          Icons.watch_later_outlined,
+                                          color: Color(0xFF3CA5A0),
+                                        ),
+                                        const Text(
+                                          '10:30',
+                                          style: TextStyle(
+                                              fontSize: 10.0,
+                                              color: Color.fromARGB(
+                                                  255, 155, 166, 166)),
+                                        ),
+                                        Spacer(
+                                          flex: 1,
+                                        ),
+                                        Icon(
+                                          Icons.calendar_today_rounded,
+                                          color: Color(0xFF3CA5A0),
+                                        ),
+                                        Text(
+                                          '06 May, 2021',
+                                          style: TextStyle(
+                                              fontSize: 10.0,
+                                              color: Color.fromARGB(
+                                                  255, 155, 166, 166)),
+                                        ),
+                                        Spacer(
+                                          flex: 1,
+                                        ),
+                                        Checkbox(
+                                          checkColor: Colors.white,
+                                          activeColor: const Color(0xFF3CA5A0),
+                                          value: isChecked,
+                                          onChanged: (bool? value) {
+                                            setState(() {
+                                              isChecked = value!;
+                                            });
+                                          },
+                                        ),
+                                      ],
                                     ),
-                                  ),
-                                  Positioned(
-                                    top: 40.0,
-                                    right: 170.0,
-                                    child: Icon(
-                                      Icons.watch_later_outlined,
-                                      color: Color(0xFF3CA5A0),
+                                    SizedBox(
+                                      height: 3.0,
                                     ),
-                                  ),
-                                  Positioned(
-                                    top: 47.0,
-                                    right: 145.0,
-                                    child: Text(
-                                      '10:30',
+                                    Text(
+                                      'Prescription consultation',
                                       style: TextStyle(
                                           fontSize: 10.0,
                                           color: Color.fromARGB(
                                               255, 155, 166, 166)),
                                     ),
-                                  ),
-                                  Positioned(
-                                      top: 80.0,
-                                      right: 77.0,
-                                      child: Text(
-                                        'Prescription consultation',
-                                        style: TextStyle(
-                                            fontSize: 10.0,
-                                            color: Color.fromARGB(
-                                                255, 155, 166, 166)),
-                                      )),
-                                  Positioned(
-                                    right: 115.0,
-                                    top: 40.0,
-                                    child: Icon(
-                                      Icons.calendar_today_rounded,
-                                      color: Color(0xFF3CA5A0),
+                                    Divider(
+                                      thickness: 2.0,
+                                      indent: 8.0,
+                                      endIndent: 8.0,
                                     ),
-                                  ),
-                                  Positioned(
-                                      top: 47.0,
-                                      right: 52.0,
-                                      child: Text(
-                                        '06 May, 2021',
-                                        style: TextStyle(
-                                            fontSize: 10.0,
-                                            color: Color.fromARGB(
-                                                255, 155, 166, 166)),
-                                      )),
-                                  Positioned(
-                                    top: 30,
-                                    right: 10,
-                                    child: Checkbox(
-                                      checkColor: Colors.white,
-                                      activeColor: Color(0xFF3CA5A0),
-                                      value: isChecked,
-                                      onChanged: (bool? value) {
-                                        setState(() {
-                                          isChecked = value!;
-                                        });
-                                      },
-                                    ),
-                                  ),
-                                  Positioned(
-                                    bottom: 40.0,
-                                    right: 16.0,
-                                    child: Text(
-                                        '________________________________________'),
-                                  ),
-                                  Positioned(
-                                    bottom: 15.0,
-                                    left: 100.0,
-                                    child: Text(
+                                    Text(
                                       'FINISHED',
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ],
@@ -177,46 +164,20 @@ class _ListOfOrderState extends ConsumerState<ListOfOrder> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ViewOrder()));
+                                builder: (context) => const ViewOrder()));
                       },
                     )
-                    // Stack(
-                    //   children: [
-                    //     Card(
-                    //       elevation: 10.0,
-                    //       child: Container(
-                    //         height: 100.0,
-                    //         width: 200.0,
-                    //       ),
-                    //     ),
-                    //     Positioned(
-                    //       child: Container(
-                    //         decoration: BoxDecoration(
-                    //             color: Colors.greenAccent,
-                    //             borderRadius: BorderRadius.circular(30)),
-                    //         //color: Colors.lightGreen,
-                    //         height: 50.0,
-                    //         width: 200.0,
-                    //         child: Text('Order'),
-                    //       ),
-                    //     )
-                    //   ],
-                    // )
                   ],
                 )),
               );
             },
-            error: (err, s) => Text(err.toString()),
+            error: (err, s) => Center(
+              child: Text(
+                'No Internet',
+                style: TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold),
+              ),
+            ),
             loading: () => const Center(child: CircularProgressIndicator()),
-            //       } else if (snapshot.hasError) {
-            //         return const Scaffold(
-            //           body: NoInternet(),
-            //         );
-            //         //Text('${snapshot.error}');
-            //       }
-            //       return const CircularProgressIndicator();
-            //     },
-            //   ),
           )),
     );
   }

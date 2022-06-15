@@ -8,6 +8,11 @@ class ViewOrder extends StatefulWidget {
 }
 
 class _ViewOrderState extends State<ViewOrder> {
+  final List<String> _listItem = [
+    'assets/images/img1.jpg',
+    'assets/images/img2.jpg',
+    'assets/images/img3.jpg',
+  ];
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -30,25 +35,27 @@ class _ViewOrderState extends State<ViewOrder> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: GridView.builder(
-                  physics: NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    crossAxisSpacing: 10.0,
-                    mainAxisExtent: 90.0,
-                    mainAxisSpacing: 2.0,
-                  ),
-                  itemCount: 3,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      color: Color(0xFF3CA5A0),
-                      child: Text("index: $index"),
-                    );
-                  },
-                ),
-              ),
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                      height: 300.0,
+                      child: GridView.count(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 10,
+                        children: _listItem
+                            .map((item) => Card(
+                                  color: Colors.transparent,
+                                  elevation: 0,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        image: DecorationImage(
+                                            image: AssetImage(item),
+                                            fit: BoxFit.fill)),
+                                  ),
+                                ))
+                            .toList(),
+                      ))),
               Padding(
                 padding: const EdgeInsets.only(left: 25.0, top: 20.0),
                 child: Text(

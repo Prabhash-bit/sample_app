@@ -23,6 +23,7 @@ class _NavBarState extends State<NavBar> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: _pageOptions[tabselected],
         bottomNavigationBar: BottomAppBar(

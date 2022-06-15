@@ -25,8 +25,6 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      // darkTheme: ThemeData.dark(),
-      // themeMode: ThemeMode.system,
       home: NavBar(),
     );
   }
